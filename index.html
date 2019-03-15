@@ -39,7 +39,76 @@
 <h3 id="markdown">Markdown</h3>
 
 <p>Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for</p>
+<!-- codigo arduino -->
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     
+<pre>
+<font color="#95a5a6">&#47;* &nbsp;Arduino Day 2019 - IFPB</font>
+<font color="#95a5a6"> * &nbsp;Introdução a IoT com NodeMCU </font>
+<font color="#95a5a6"> * &nbsp;Ministrantes: Angelo Johnson, Laura Macaíba e Raylle Cordeiro</font>
+<font color="#95a5a6"> *&#47;</font>
 
+<font color="#5e6d03">#include</font> <font color="#434f54">&lt;</font><font color="#000000">ESP8266WiFi</font><font color="#434f54">.</font><font color="#000000">h</font><font color="#434f54">&gt;</font> &nbsp;<font color="#434f54">&#47;&#47;Biblioteca para gerenciamento do WiFi.</font>
+<font color="#5e6d03">#include</font> <font color="#434f54">&lt;</font><font color="#d35400">WiFiServer</font><font color="#434f54">.</font><font color="#000000">h</font><font color="#434f54">&gt;</font> &nbsp;&nbsp;<font color="#434f54">&#47;&#47;Biblioteca para gerenciamento do TCP.</font>
+ 
+<font color="#d35400">WiFiServer</font> <font color="#000000">servidor</font><font color="#000000">(</font><font color="#000000">80</font><font color="#000000">)</font><font color="#000000">;</font> &nbsp;<font color="#434f54">&#47;&#47;Cria um objeto &#34;servidor&#34; na porta 80 (http).</font>
+<font color="#d35400">WiFiClient</font> <font color="#000000">cliente</font><font color="#000000">;</font> <font color="#434f54">&#47;&#47;Cria um objeto &#34;cliente&#34;.</font>
+ 
+<font color="#00979c">String</font> <font color="#000000">html</font><font color="#000000">;</font> &nbsp;<font color="#434f54">&#47;&#47;String que armazena o corpo do site.</font>
+ 
+<font color="#00979c">void</font> <font color="#5e6d03">setup</font><font color="#000000">(</font><font color="#000000">)</font>
+<font color="#000000">{</font>
+ &nbsp;&nbsp;<b><font color="#d35400">Serial</font></b><font color="#434f54">.</font><font color="#d35400">begin</font><font color="#000000">(</font><font color="#000000">9600</font><font color="#000000">)</font><font color="#000000">;</font> &nbsp;<font color="#434f54">&#47;&#47;Inicia comunicaçao Serial.</font>
+ 
+ &nbsp;&nbsp;<b><font color="#d35400">WiFi</font></b><font color="#434f54">.</font><font color="#000000">mode</font><font color="#000000">(</font><font color="#000000">WIFI_STA</font><font color="#000000">)</font><font color="#000000">;</font> <font color="#434f54">&#47;&#47;Habilita o modo STATION.</font>
+ &nbsp;&nbsp;<b><font color="#d35400">WiFi</font></b><font color="#434f54">.</font><font color="#d35400">begin</font><font color="#000000">(</font><font color="#005c5f">&#34;NOME_DA_REDE&#34;</font><font color="#434f54">,</font> <font color="#005c5f">&#34;SENHA_DA_REDE&#34;</font><font color="#000000">)</font><font color="#000000">;</font> &nbsp;<font color="#434f54">&#47;&#47;Conecta no WiFi (COLOQUE O NOME E SENHA DA SUA REDE)</font>
+ 
+ &nbsp;&nbsp;<font color="#434f54">&#47;&#47;Serial.print(WiFi.localIP()); &nbsp;&#47;&#47;Printa o IP que foi concebido ao ESP8266 (este ip que voce ira acessar)</font>
+ &nbsp;&nbsp;<font color="#000000">servidor</font><font color="#434f54">.</font><font color="#d35400">begin</font><font color="#000000">(</font><font color="#000000">)</font><font color="#000000">;</font> &nbsp;<font color="#434f54">&#47;&#47;Inicia o Servidor.</font>
+ &nbsp;&nbsp;
+ &nbsp;<b><font color="#d35400">Serial</font></b><font color="#434f54">.</font><font color="#d35400">print</font><font color="#000000">(</font><font color="#005c5f">&#34;Conectando&#34;</font><font color="#000000">)</font><font color="#000000">;</font>
+ &nbsp;<font color="#434f54">&#47;&#47;Verifica se esta conectado</font>
+ &nbsp;<font color="#5e6d03">while</font> <font color="#000000">(</font><b><font color="#d35400">WiFi</font></b><font color="#434f54">.</font><font color="#d35400">status</font><font color="#000000">(</font><font color="#000000">)</font> <font color="#434f54">!=</font> <font color="#000000">WL_CONNECTED</font><font color="#000000">)</font><font color="#000000">{</font>
+ &nbsp;&nbsp;&nbsp;<font color="#d35400">delay</font><font color="#000000">(</font><font color="#000000">500</font><font color="#000000">)</font><font color="#000000">;</font>
+ &nbsp;&nbsp;&nbsp;<b><font color="#d35400">Serial</font></b><font color="#434f54">.</font><font color="#d35400">print</font><font color="#000000">(</font><font color="#005c5f">&#34;.&#34;</font><font color="#000000">)</font><font color="#000000">;</font>
+ &nbsp;<font color="#000000">}</font>
+ &nbsp;
+ &nbsp;<b><font color="#d35400">Serial</font></b><font color="#434f54">.</font><font color="#d35400">println</font><font color="#000000">(</font><font color="#000000">)</font><font color="#000000">;</font>
+
+ &nbsp;<b><font color="#d35400">Serial</font></b><font color="#434f54">.</font><font color="#d35400">print</font><font color="#000000">(</font><font color="#005c5f">&#34;Conectado, Endereço de IP: &#34;</font><font color="#000000">)</font><font color="#000000">;</font>
+ &nbsp;<b><font color="#d35400">Serial</font></b><font color="#434f54">.</font><font color="#d35400">println</font><font color="#000000">(</font><b><font color="#d35400">WiFi</font></b><font color="#434f54">.</font><font color="#d35400">localIP</font><font color="#000000">(</font><font color="#000000">)</font><font color="#000000">)</font><font color="#000000">;</font>
+ &nbsp;<font color="#d35400">pinMode</font><font color="#000000">(</font><font color="#000000">D4</font><font color="#434f54">,</font> <font color="#00979c">OUTPUT</font><font color="#000000">)</font><font color="#000000">;</font> &nbsp;<font color="#434f54">&#47;&#47;Define o pino 4 como saída.</font>
+<font color="#000000">}</font>
+ 
+<font color="#00979c">void</font> <font color="#5e6d03">loop</font><font color="#000000">(</font><font color="#000000">)</font>
+<font color="#000000">{</font>
+ &nbsp;&nbsp;<font color="#000000">cliente</font> <font color="#434f54">=</font> <font color="#000000">servidor</font><font color="#434f54">.</font><font color="#d35400">available</font><font color="#000000">(</font><font color="#000000">)</font><font color="#000000">;</font> &nbsp;<font color="#434f54">&#47;&#47;Diz ao cliente que há um servidor disponivel.</font>
+ 
+ &nbsp;&nbsp;<font color="#5e6d03">if</font> <font color="#000000">(</font><font color="#000000">cliente</font> <font color="#434f54">==</font> <font color="#00979c">true</font><font color="#000000">)</font> <font color="#434f54">&#47;&#47;Se houver clientes conectados, ira enviar o HTML.</font>
+ &nbsp;&nbsp;<font color="#000000">{</font>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#00979c">String</font> <font color="#000000">req</font> <font color="#434f54">=</font> <font color="#000000">cliente</font><font color="#434f54">.</font><font color="#d35400">readStringUntil</font><font color="#000000">(</font><font color="#00979c">&#39;\r&#39;</font><font color="#000000">)</font><font color="#000000">;</font> <font color="#434f54">&#47;&#47;Faz a leitura do Cliente.</font>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b><font color="#d35400">Serial</font></b><font color="#434f54">.</font><font color="#d35400">println</font><font color="#000000">(</font><font color="#000000">req</font><font color="#000000">)</font><font color="#000000">;</font><font color="#434f54">&#47;&#47;Printa o pedido no Serial monitor.</font>
+ 
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#5e6d03">if</font> <font color="#000000">(</font><font color="#000000">req</font><font color="#434f54">.</font><font color="#d35400">indexOf</font><font color="#000000">(</font><font color="#005c5f">&#34;&#47;LED&#34;</font><font color="#000000">)</font> <font color="#434f54">&gt;</font> <font color="#434f54">-</font><font color="#000000">1</font><font color="#000000">)</font> <font color="#434f54">&#47;&#47;Caso o pedido houver led, inverter o seu estado.</font>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#d35400">digitalWrite</font><font color="#000000">(</font><font color="#000000">D4</font><font color="#434f54">,</font> <font color="#434f54">!</font><font color="#d35400">digitalRead</font><font color="#000000">(</font><font color="#000000">D4</font><font color="#000000">)</font><font color="#000000">)</font><font color="#000000">;</font> &nbsp;<font color="#434f54">&#47;&#47;Inverte o estado do led.</font>
+ 
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">html</font> <font color="#434f54">=</font> <font color="#005c5f">&#34;&#34;</font><font color="#000000">;</font><font color="#434f54">&#47;&#47;Reseta a string.</font>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">html</font> <font color="#434f54">+=</font> <font color="#005c5f">&#34;HTTP&#47;1.1 Content-Type: text&#47;html\n\n&#34;</font><font color="#000000">;</font> <font color="#434f54">&#47;&#47;Identificaçao do HTML.</font>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">html</font> <font color="#434f54">+=</font> <font color="#005c5f">&#34;&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;&lt;title&gt;Arduino Day&lt;&#47;title&gt;&#34;</font><font color="#000000">;</font><font color="#434f54">&#47;&#47;Identificaçao e Titulo.</font>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">html</font> <font color="#434f54">+=</font> <font color="#005c5f">&#34;&lt;meta name=&#39;viewport&#39; content=&#39;user-scalable=no&#39;charset=&#39;utf-8&#39;&gt;&#34;</font><font color="#000000">;</font> <font color="#434f54">&#47;&#47;Desabilita o Zoom.</font>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">html</font> <font color="#434f54">+=</font> <font color="#005c5f">&#34;&lt;style&gt;.btn{font-size:20px; color:white; background-color:#0094ff; width:200px; height:50px;}&lt;&#47;style&gt;&#34;</font><font color="#000000">;</font> <font color="#434f54">&#47;&#47;Estilização do botão</font>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">html</font> <font color="#434f54">+=</font> <font color="#005c5f">&#34;&lt;&#47;head&gt;&lt;body&gt;&lt;center&gt;&lt;br&gt;&#34;</font><font color="#000000">;</font>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">html</font> <font color="#434f54">+=</font> <font color="#005c5f">&#34;&lt;h1&gt;&lt;font face=&#39;arial&#39;&gt;Introdução à IoT com NodeMCU &lt;&#47;font&gt;&lt;&#47;h1&gt;&#34;</font><font color="#000000">;</font> 
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">html</font> <font color="#434f54">+=</font> <font color="#005c5f">&#34;&lt;form action=&#39;&#47;LED&#39; method=&#39;get&#39;&gt;&#34;</font><font color="#000000">;</font> &nbsp;<font color="#434f54">&#47;&#47;Cria um botao para o link &#47;LED</font>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">html</font> <font color="#434f54">+=</font> <font color="#005c5f">&#34;&lt;button type=&#39;submit&#39; class=&#39;btn&#39; value=&#39;LED&#39;&gt; LED &lt;&#47;button&gt;&lt;&#47;form&gt;&#34;</font><font color="#000000">;</font>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">html</font> <font color="#434f54">+=</font> <font color="#005c5f">&#34;&lt;&#47;center&gt;&lt;&#47;body&gt;&lt;&#47;html&gt;&#34;</font><font color="#000000">;</font> &nbsp;<font color="#434f54">&#47;&#47;Termino e fechamento de TAG`s do HTML. Nao altere nada sem saber!</font>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">cliente</font><font color="#434f54">.</font><font color="#d35400">print</font><font color="#000000">(</font><font color="#000000">html</font><font color="#000000">)</font><font color="#000000">;</font><font color="#434f54">&#47;&#47;Finalmente, enviamos o HTML para o cliente.</font>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">cliente</font><font color="#434f54">.</font><font color="#d35400">stop</font><font color="#000000">(</font><font color="#000000">)</font><font color="#000000">;</font><font color="#434f54">&#47;&#47;Encerra a conexao.</font>
+ &nbsp;&nbsp;<font color="#000000">}</font>
+<font color="#000000">}</font>
+
+</pre>
+</code></pre></div></div>      
 <div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Syntax highlighted code block
 
 <span class="gh"># Header 1</span>
