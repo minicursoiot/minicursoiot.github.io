@@ -59,6 +59,6 @@ void loop()
       html += "</center></body></html>";  //Termino e fechamento de TAG`s do HTML. Nao altere nada sem saber!
       
       cliente.print(html);//Finalmente, enviamos o HTML para o cliente.
-      cliente.stop();//Encerra a conexao.
+      cliente.flush();//Encerra a conexao.
    }
 }
